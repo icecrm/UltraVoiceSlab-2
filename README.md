@@ -42,7 +42,7 @@ This mod plans to add different voice lines to:
 - radwazhere (Voice of Cerberus)
 - Doodles (Voice of Virtue and Providence)
 - indie_artz182 (Voice of V2)
-- ics cram/Soleil (Voice of Sentry, Ferryman, Streetcleaner)
+- ics cram/Soleil (Voice of Sentry, Ferryman, Streetcleaner, alt swordsmachine)
 
 ---
 
