@@ -44,6 +44,8 @@ This mod plans to add different voice lines to:
 - Doodles (Voice of Virtue and Providence)
 - indie_artz182 (Voice of V2)
 - ics cram/Soleil (Voice of Sentry, Ferryman, Streetcleaner, alt swordsmachine)
+- MoonAU/DreamsEndAgate (Voice of Earthmover)
+- Sangue (voice of Mirror Reaper, masc Mindflayer)
 
 ---
 
