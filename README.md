@@ -38,6 +38,7 @@ This mod plans to add different voice lines to:
 
 - mof33/mel (for helping me figure this out and letting me do this)
 - Garrison (Voice of swordsmachine, tundra)
+- Eggs Toast (Voice of swordsmachine, agony)
 - Uta Utane/UTAU (placeholder voice)
 - radwazhere (Voice of Cerberus)
 - Doodles (Voice of Virtue and Providence)
