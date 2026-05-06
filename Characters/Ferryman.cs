@@ -13,10 +13,13 @@ namespace UltraVoice.Characters
         public static AudioClip CoinFightClip;
         public static AudioClip PhaseChangeClip;
         public static AudioClip ApproachClip;
+        public static AudioClip AgonisIntroClip;
+        public static AudioClip RudrakshaIntroClip;
+        public static AudioClip AgonisDownedClip;
+        public static AudioClip RudrakshaDownedClip;
 
         public static AudioClip[] SpawnClips;
         public static AudioClip[] ChatterClips;
-        public static AudioClip[] ParryClips;
         public static AudioClip[] DeathClips;
 
         // Subtitle storage
@@ -61,8 +64,6 @@ namespace UltraVoice.Characters
                 return false;
 
             EnemyIdentifier eid = ferryman.GetComponent<EnemyIdentifier>();
-            if (eid == null)
-                return false;
 
             return eid.mirrorOnly;
         }
@@ -73,50 +74,44 @@ namespace UltraVoice.Characters
                 return false;
 
             EnemyIdentifier eid = ferryman.GetComponent<EnemyIdentifier>();
-            if (eid == null)
-                return false;
 
             return !eid.mirrorOnly;
         }
 
-        public static void LoadVoiceLines(AssetBundle bundle, BepInEx.Logging.ManualLogSource logger)
+        public static void LoadVoiceLines(BepInEx.Logging.ManualLogSource logger)
         {
-            BossIntroClip = UltraVoicePlugin.LoadClip(bundle, "ferry_FightStarted");
-            CoinSkipClip = UltraVoicePlugin.LoadClip(bundle, "ferry_CoinSkip");
-            CoinFightClip = UltraVoicePlugin.LoadClip(bundle, "ferry_CoinFight");
-            PhaseChangeClip = UltraVoicePlugin.LoadClip(bundle, "ferry_PhaseChange");
-            ApproachClip = UltraVoicePlugin.LoadClip(bundle, "ferry_Approach");
+            BossIntroClip = UltraVoicePlugin.LoadClip("Ferryman.ferry_FightStarted.wav");
+            CoinSkipClip = UltraVoicePlugin.LoadClip("Ferryman.Ferry_CoinSkip.wav");
+            CoinFightClip = UltraVoicePlugin.LoadClip("Ferryman.ferry_CoinFight.wav");
+            PhaseChangeClip = UltraVoicePlugin.LoadClip("Ferryman.ferry_PhaseChange.wav");
+            ApproachClip = UltraVoicePlugin.LoadClip("Ferryman.ferry_Approach.wav");
+            AgonisIntroClip = UltraVoicePlugin.LoadClip("Ferryman.ferry_SpawnSpecialAgonis.wav");
+            RudrakshaIntroClip = UltraVoicePlugin.LoadClip("Ferryman.ferry_SpawnSpecialRudraksha.wav");
+            AgonisDownedClip = UltraVoicePlugin.LoadClip("Ferryman.ferry_DownedAgonis.wav");
+            RudrakshaDownedClip = UltraVoicePlugin.LoadClip("Ferryman.ferry_DownedRudraksha.wav");
 
             SpawnClips = new AudioClip[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Spawn1"),
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Spawn2"),
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Spawn3"),
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Spawn4"),
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Spawn5")
+                UltraVoicePlugin.LoadClip("Ferryman.ferry_Spawn1.wav"),
+                UltraVoicePlugin.LoadClip("Ferryman.ferry_Spawn2.wav"),
+                UltraVoicePlugin.LoadClip("Ferryman.ferry_Spawn3.wav"),
+                UltraVoicePlugin.LoadClip("Ferryman.ferry_Spawn4.wav"),
+                UltraVoicePlugin.LoadClip("Ferryman.ferry_Spawn5.wav")
             };
 
             ChatterClips = new AudioClip[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Chatter1"),
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Chatter2"),
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Chatter3"),
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Chatter4"),
-            };
-
-            ParryClips = new AudioClip[]
-            {
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Parry1"),
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Parry2"),
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Parry3"),
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Parry4"),
+                UltraVoicePlugin.LoadClip("Ferryman.Ferry_Chatter1.wav"),
+                UltraVoicePlugin.LoadClip("Ferryman.Ferry_Chatter2.wav"),
+                UltraVoicePlugin.LoadClip("Ferryman.Ferry_Chatter3.wav"),
+                UltraVoicePlugin.LoadClip("Ferryman.Ferry_Chatter4.wav"),
             };
 
             DeathClips = new AudioClip[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Death1"),
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Death2"),
-                UltraVoicePlugin.LoadClip(bundle, "ferry_Death3"),
+                UltraVoicePlugin.LoadClip("Ferryman.ferry_Death1.wav"),
+                UltraVoicePlugin.LoadClip("Ferryman.ferry_Death2.wav"),
+                UltraVoicePlugin.LoadClip("Ferryman.ferry_Death3.wav"),
             };
 
             logger.LogInfo("Ferryman voice lines loaded successfully!");
@@ -138,15 +133,11 @@ namespace UltraVoice.Characters
             if (__instance == null)
                 return;
 
-            if (StatsManager.Instance.restarts > 0)
-                return;
-
             VoiceManager.enemySpawnTimes[__instance] = Time.time;
 
-            if (FerrymanCharacter.IsAgonisOrRudraksha(__instance))
-                return;
+            FerrymanCharacter.FerrymanPhaseChangePlayed = false;
 
-            if (__instance.bossVersion)
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "e964cf0ffaa9e0e4e940b5c738983796")
                 if (FerrymanCharacter.FerrymanCoinTossed)
                 {
                     UltraVoicePlugin.Instance.StartCoroutine(PlayCoin(__instance));
@@ -159,11 +150,19 @@ namespace UltraVoice.Characters
                     VoiceManager.enemySpawnTimes[__instance] = Time.time;
                     VoiceManager.spawnVoiceEndTimes[__instance] = Time.time + FerrymanCharacter.BossIntroClip.length;
                 }
-            else
+            else if (!FerrymanCharacter.IsAgonisOrRudraksha(__instance))
                 VoiceManager.PlayRandomVoice(__instance, "Ferryman",
                     FerrymanCharacter.SpawnClips,
-                    FerrymanCharacter.SpawnSubs,
-                    true
+                    FerrymanCharacter.SpawnSubs
+                );
+            else if (FerrymanCharacter.IsAgonis(__instance))
+                VoiceManager.CreateVoiceSource(__instance, "Ferryman",
+                    FerrymanCharacter.AgonisIntroClip
+                );
+            else if (FerrymanCharacter.IsRudraksha(__instance))
+                VoiceManager.CreateVoiceSource(__instance, "Ferryman",
+                    FerrymanCharacter.RudrakshaIntroClip,
+                    "Leave us alone!"
                 );
 
             static IEnumerator PlayNoCoin(Ferryman ferry)
@@ -180,12 +179,12 @@ namespace UltraVoice.Characters
                     yield break;
 
                 if (!src) yield break;
-                VoiceManager.ShowSubtitle("Gabriel warned me of you and your likes", src, new Color(0f, 0.66f, 0.77f));
+                VoiceManager.ShowSubtitle("Gabriel warned me of your kind", src, new Color(0f, 0.66f, 0.77f));
 
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(2.75f);
 
                 if (!src) yield break;
-                VoiceManager.ShowSubtitle("I will not make the same mistakes as him!", src, new Color(0f, 0.66f, 0.77f));
+                VoiceManager.ShowSubtitle("I will not share his failure", src, new Color(0f, 0.66f, 0.77f));
             }
 
             static IEnumerator PlayCoin(Ferryman ferry)
@@ -202,12 +201,12 @@ namespace UltraVoice.Characters
                     yield break;
 
                 if (!src) yield break;
-                VoiceManager.ShowSubtitle("You SCOUNDREL", src, new Color(0f, 0.66f, 0.77f));
+                VoiceManager.ShowSubtitle("You WRETCH", src, new Color(0f, 0.66f, 0.77f));
 
                 yield return new WaitForSeconds(1.5f);
 
                 if (!src) yield break;
-                VoiceManager.ShowSubtitle("I should have never trusted a machine like you!", src, new Color(0f, 0.66f, 0.77f));
+                VoiceManager.ShowSubtitle("I granted you passage, and you repay me with DECEIT!?", src, new Color(0f, 0.66f, 0.77f));
             }
         }
     }
@@ -238,7 +237,7 @@ namespace UltraVoice.Characters
                 if (src == null)
                     yield break;
 
-                yield return new WaitForSeconds(1.75f);
+                yield return new WaitForSeconds(1.5f);
 
                 if (!src) yield break;
                 VoiceManager.ShowSubtitle("This shall do", src, new Color(0f, 0.66f, 0.77f));
@@ -270,7 +269,7 @@ namespace UltraVoice.Characters
             if (!VoiceManager.CheckCooldown(__instance, 6f))
                 return;
 
-            if (FerrymanCharacter.IsAgonisOrRudraksha(__instance))
+            if (FerrymanCharacter.IsAgonis(__instance))
                 return;
 
             if (VoiceManager.TooSoonAfterSpawn(__instance, 3f))
@@ -319,26 +318,21 @@ namespace UltraVoice.Characters
 
                 FerrymanCharacter.FerrymanPhaseChangePlayed = true;
 
-                VoiceManager.spawnVoiceEndTimes[ferry] = Time.time + FerrymanCharacter.BossIntroClip.length;
-
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(1.5f);
 
                 VoiceManager.ShowSubtitle("I am not finished with you!", src, new Color(0f, 0.66f, 0.77f));
             }
         }
     }
 
-    [HarmonyPatch(typeof(Ferryman), "OnGoLimp")]
+    [HarmonyPatch(typeof(Ferryman), "OnDeath")]
     class FerrymanDeathPatch
     {
-        static void Postfix(Ferryman __instance)
+        static void Prefix(Ferryman __instance)
         {
             if (!UltraVoicePlugin.FerrymanVoiceEnabled.value) return;
 
-            if (__instance == null)
-                return;
-
-            if (FerrymanCharacter.IsAgonisOrRudraksha(__instance))
+            if (FerrymanCharacter.IsAgonis(__instance))
                 return;
 
             VoiceManager.PlayRandomVoice(__instance, "Ferryman",
@@ -346,6 +340,40 @@ namespace UltraVoice.Characters
                 null,
                 true
             );
+        }
+    }
+
+    [HarmonyPatch(typeof(Ferryman), "Knockdown")]
+    class FerrymanKnockdownSpecialPatch
+    {
+        static void Postfix(Ferryman __instance)
+        {
+            if (!UltraVoicePlugin.FerrymanVoiceEnabled.value) return;
+
+            if (FerrymanCharacter.IsAgonis(__instance))
+                VoiceManager.CreateVoiceSource(__instance, "Ferryman",
+                    FerrymanCharacter.AgonisDownedClip
+                );
+            else if (FerrymanCharacter.IsRudraksha(__instance))
+                UltraVoicePlugin.Instance.StartCoroutine(PlayDownedRudraksha(__instance));
+
+
+            static IEnumerator PlayDownedRudraksha(Ferryman ferry)
+            {
+                new WaitForSeconds(0.1f);
+
+                var src = VoiceManager.CreateVoiceSource(
+                    ferry,
+                    "FerrymanDowned",
+                    FerrymanCharacter.RudrakshaDownedClip,
+                    null,
+                    true
+                );
+
+                yield return new WaitForSeconds(1.5f);
+
+                VoiceManager.ShowSubtitle("No, not now...", src, new Color(0f, 0.66f, 0.77f));
+            }
         }
     }
 
@@ -363,9 +391,6 @@ namespace UltraVoice.Characters
                 return;
 
             var player = MonoSingleton<NewMovement>.Instance;
-
-            if (player == null)
-                return;
 
             int id = __instance.GetInstanceID();
 

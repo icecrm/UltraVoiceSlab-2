@@ -51,52 +51,52 @@ namespace UltraVoice.Characters
         public static bool V2SecondVoiceRestartPlayed = false;
         public static bool V2DeathPlayed = false;
 
-        public static void LoadVoiceLines(AssetBundle bundle, BepInEx.Logging.ManualLogSource logger)
+        public static void LoadVoiceLines(BepInEx.Logging.ManualLogSource logger)
         {
-            IntroFirstClip = UltraVoicePlugin.LoadClip(bundle, "v2_IntroFirst");
-            IntroFirstRestartClip = UltraVoicePlugin.LoadClip(bundle, "v2_RestartIntroFirst");
-            IntroSecondClip = UltraVoicePlugin.LoadClip(bundle, "v2_IntroSecond");
-            IntroSecondRestartClip = UltraVoicePlugin.LoadClip(bundle, "v2_RestartIntroSecond");
+            IntroFirstClip = UltraVoicePlugin.LoadClip("V2.v2_IntroFirst.wav");
+            IntroFirstRestartClip = UltraVoicePlugin.LoadClip("V2.v2_RestartIntroFirst.wav");
+            IntroSecondClip = UltraVoicePlugin.LoadClip("V2.v2_IntroSecond.wav");
+            IntroSecondRestartClip = UltraVoicePlugin.LoadClip("V2.v2_RestartIntroSecond.wav");
 
-            FastDefeatClip = UltraVoicePlugin.LoadClip(bundle, "v2_FastDefeat");
-            DefeatClip = UltraVoicePlugin.LoadClip(bundle, "v2_Defeat");
-            DeathClip = UltraVoicePlugin.LoadClip(bundle, "v2_Death");
-            FlailingClip = UltraVoicePlugin.LoadClip(bundle, "v2_Flailing");
-            EnragePatienceClip = UltraVoicePlugin.LoadClip(bundle, "v2_EnragePatience");
-            EnragePunchedClip = UltraVoicePlugin.LoadClip(bundle, "v2_EnragePunched");
-            EscapingClip = UltraVoicePlugin.LoadClip(bundle, "v2_Escaping");
+            FastDefeatClip = UltraVoicePlugin.LoadClip("V2.v2_FastDefeat.wav");
+            DefeatClip = UltraVoicePlugin.LoadClip("V2.v2_Defeat.wav");
+            DeathClip = UltraVoicePlugin.LoadClip("V2.v2_Death.wav");
+            FlailingClip = UltraVoicePlugin.LoadClip("V2.v2_Flailing.wav");
+            EnragePatienceClip = UltraVoicePlugin.LoadClip("V2.v2_EnragePatience.wav");
+            EnragePunchedClip = UltraVoicePlugin.LoadClip("V2.v2_EnragePunched.wav");
+            EscapingClip = UltraVoicePlugin.LoadClip("V2.v2_Escaping.wav");
 
             ChatterClips = new AudioClip[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "v2_Chatter1"),
-                UltraVoicePlugin.LoadClip(bundle, "v2_Chatter2"),
-                UltraVoicePlugin.LoadClip(bundle, "v2_Chatter3"),
-                UltraVoicePlugin.LoadClip(bundle, "v2_Chatter4"),
-                UltraVoicePlugin.LoadClip(bundle, "v2_Chatter5")
+                UltraVoicePlugin.LoadClip("V2.v2_Chatter1.wav"),
+                UltraVoicePlugin.LoadClip("V2.v2_Chatter2.wav"),
+                UltraVoicePlugin.LoadClip("V2.v2_Chatter3.wav"),
+                UltraVoicePlugin.LoadClip("V2.v2_Chatter4.wav"),
+                UltraVoicePlugin.LoadClip("V2.v2_Chatter5.wav")
             };
 
             ChatterPissedClips = new AudioClip[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "v2_ChatterPissed1"),
-                UltraVoicePlugin.LoadClip(bundle, "v2_ChatterPissed2"),
-                UltraVoicePlugin.LoadClip(bundle, "v2_ChatterPissed3"),
-                UltraVoicePlugin.LoadClip(bundle, "v2_ChatterPissed4"),
-                UltraVoicePlugin.LoadClip(bundle, "v2_ChatterPissed5")
+                UltraVoicePlugin.LoadClip("V2.v2_ChatterPissed1.wav"),
+                UltraVoicePlugin.LoadClip("V2.v2_ChatterPissed2.wav"),
+                UltraVoicePlugin.LoadClip("V2.v2_ChatterPissed3.wav"),
+                UltraVoicePlugin.LoadClip("V2.v2_ChatterPissed4.wav"),
+                UltraVoicePlugin.LoadClip("V2.v2_ChatterPissed5.wav")
             };
 
             PainClips = new AudioClip[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "v2_Pain1"),
-                UltraVoicePlugin.LoadClip(bundle, "v2_Pain2"),
-                UltraVoicePlugin.LoadClip(bundle, "v2_Pain3"),
-                UltraVoicePlugin.LoadClip(bundle, "v2_Pain4"),
-                UltraVoicePlugin.LoadClip(bundle, "v2_Pain5")
+                UltraVoicePlugin.LoadClip("V2.v2_Pain1.wav"),
+                UltraVoicePlugin.LoadClip("V2.v2_Pain2.wav"),
+                UltraVoicePlugin.LoadClip("V2.v2_Pain3.wav"),
+                UltraVoicePlugin.LoadClip("V2.v2_Pain4.wav"),
+                UltraVoicePlugin.LoadClip("V2.v2_Pain5.wav")
             };
 
             logger.LogInfo("V2 voice lines loaded successfully!");
         }
 
-}
+    }
 
     // V2 PATCHES
 
@@ -143,21 +143,21 @@ namespace UltraVoice.Characters
             V2Character.V2IntroTime = Time.time;
             VoiceManager.spawnVoiceEndTimes[v2] = Time.time + V2Character.IntroFirstClip.length;
 
-            VoiceManager.ShowSubtitle("A war-machine of my own design?", src);
+            VoiceManager.ShowSubtitle("So, you're my predecessor", src);
 
-            yield return new WaitForSeconds(2.75f);
-
-            if (v2 == null || !v2.inIntro)
-                yield break;
-
-            VoiceManager.ShowSubtitle("How flattering...", src);
-
-            yield return new WaitForSeconds(1.75f);
+            yield return new WaitForSeconds(2.25f);
 
             if (v2 == null || !v2.inIntro)
                 yield break;
 
-            VoiceManager.ShowSubtitle("Well, may the best machine win", src);
+            VoiceManager.ShowSubtitle("How quaint...", src);
+
+            yield return new WaitForSeconds(1.25f);
+
+            if (v2 == null || !v2.inIntro)
+                yield break;
+
+            VoiceManager.ShowSubtitle("I suppose I'll have to show you what an upgrade looks like.", src);
         }
     }
 
@@ -312,7 +312,7 @@ namespace UltraVoice.Characters
             if (src == null)
                 yield break;
 
-            VoiceManager.ShowSubtitle("Enough!", src);
+            VoiceManager.ShowSubtitle("Enough", src);
 
             yield return new WaitForSeconds(1.5f);
 
@@ -339,7 +339,7 @@ namespace UltraVoice.Characters
 
         static IEnumerator PlayEscape(V2 v2)
         {
-            yield return new WaitForSeconds(1.25f);
+            yield return new WaitForSeconds(1f);
 
             VoiceManager.CreateVoiceSource(
                 v2,
@@ -369,7 +369,7 @@ namespace UltraVoice.Characters
     {
         static void Postfix(V2 __instance, ref DamageData data)
         {
-            if (data.damage < 3f)
+            if (data.damage <= 2f)
                 return;
 
             if (__instance.dead)
@@ -379,9 +379,6 @@ namespace UltraVoice.Characters
                 return;
 
             if (!VoiceManager.CheckCooldown(__instance, 0.1f))
-                return;
-
-            if (V2Character.PainClips == null || V2Character.PainClips.Length == 0)
                 return;
 
             int i = UnityEngine.Random.Range(0, V2Character.PainClips.Length);
@@ -465,17 +462,17 @@ namespace UltraVoice.Characters
                 V2Character.IntroSecondClip
             );
 
-            VoiceManager.ShowSubtitle("Ah, so glad you could make it", src);
+            VoiceManager.ShowSubtitle("There you are.", src);
+
+            if (v2 == null || !src.isPlaying) yield break;
+            yield return new WaitForSeconds(1.25f);
+
+            VoiceManager.ShowSubtitle("I was wondering how long you'd keep my arm...", src);
 
             if (v2 == null || !src.isPlaying) yield break;
             yield return new WaitForSeconds(2.75f);
 
-            VoiceManager.ShowSubtitle("You took something from me, you know", src);
-
-            if (v2 == null || !src.isPlaying) yield break;
-            yield return new WaitForSeconds(2.5f);
-
-            VoiceManager.ShowSubtitle("I think I'll be taking it back.", src);
+            VoiceManager.ShowSubtitle("Don't worry, I'll pry it off you myself.", src);
         }
     }
 

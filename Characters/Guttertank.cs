@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UltraVoice.Utilities;
+using UnityEngine.Assertions.Must;
 
 namespace UltraVoice.Characters
 {
@@ -39,45 +40,45 @@ namespace UltraVoice.Characters
 
         public static bool GuttertankSpawnInMirror = false;
 
-        public static void LoadVoiceLines(AssetBundle bundle, BepInEx.Logging.ManualLogSource logger)
+        public static void LoadVoiceLines(BepInEx.Logging.ManualLogSource logger)
         {
             SpawnClips = new AudioClip[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "gt_Spawn1"),
-                UltraVoicePlugin.LoadClip(bundle, "gt_Spawn2"),
-                UltraVoicePlugin.LoadClip(bundle, "gt_Spawn3"),
-                UltraVoicePlugin.LoadClip(bundle, "gt_Spawn4")
+                UltraVoicePlugin.LoadClip("Guttertank.gt_Spawn1.wav"),
+                UltraVoicePlugin.LoadClip("Guttertank.gt_Spawn2.wav"),
+                UltraVoicePlugin.LoadClip("Guttertank.gt_Spawn3.wav"),
+                UltraVoicePlugin.LoadClip("Guttertank.gt_Spawn4.wav")
             };
 
-            AttackClip = UltraVoicePlugin.LoadClip(bundle, "gt_Attack");
+            AttackClip = UltraVoicePlugin.LoadClip("Guttertank.gt_Attack.wav");
 
             PunchHitClips = new AudioClip[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "gt_PunchHit1"),
-                UltraVoicePlugin.LoadClip(bundle, "gt_PunchHit2"),
-                UltraVoicePlugin.LoadClip(bundle, "gt_PunchHit3")
+                UltraVoicePlugin.LoadClip("Guttertank.gt_PunchHit1.wav"),
+                UltraVoicePlugin.LoadClip("Guttertank.gt_PunchHit2.wav"),
+                UltraVoicePlugin.LoadClip("Guttertank.gt_PunchHit3.wav")
             };
 
             FrustratedClips = new AudioClip[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "gt_PunchTrip1"),
-                UltraVoicePlugin.LoadClip(bundle, "gt_PunchTrip2"),
-                UltraVoicePlugin.LoadClip(bundle, "gt_PunchTrip3"),
-                UltraVoicePlugin.LoadClip(bundle, "gt_PunchTrip4")
+                UltraVoicePlugin.LoadClip("Guttertank.gt_PunchTrip1.wav"),
+                UltraVoicePlugin.LoadClip("Guttertank.gt_PunchTrip2.wav"),
+                UltraVoicePlugin.LoadClip("Guttertank.gt_PunchTrip3.wav"),
+                UltraVoicePlugin.LoadClip("Guttertank.gt_PunchTrip4.wav")
             };
 
             DeathClips = new AudioClip[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "gt_Death1"),
-                UltraVoicePlugin.LoadClip(bundle, "gt_Death2"),
-                UltraVoicePlugin.LoadClip(bundle, "gt_Death3")
+                UltraVoicePlugin.LoadClip("Guttertank.gt_Death1.wav"),
+                UltraVoicePlugin.LoadClip("Guttertank.gt_Death2.wav"),
+                UltraVoicePlugin.LoadClip("Guttertank.gt_Death3.wav")
             };
 
             TripPainClips = new AudioClip[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "gt_TripPain1"),
-                UltraVoicePlugin.LoadClip(bundle, "gt_TripPain2"),
-                UltraVoicePlugin.LoadClip(bundle, "gt_TripPain3"),
+                UltraVoicePlugin.LoadClip("Guttertank.gt_TripPain1.wav"),
+                UltraVoicePlugin.LoadClip("Guttertank.gt_TripPain2.wav"),
+                UltraVoicePlugin.LoadClip("Guttertank.gt_TripPain3.wav"),
             };
 
             logger.LogInfo("Guttertank voice lines loaded successfully!");
@@ -146,9 +147,6 @@ namespace UltraVoice.Characters
         {
             if (!UltraVoicePlugin.GuttertankVoiceEnabled.value) return;
 
-            if (__instance == null || __instance.dead)
-                return;
-
             UltraVoicePlugin.Instance.StartCoroutine(UltraVoicePlugin.DelayedVox(() =>
                         VoiceManager.PlayRandomVoice(__instance, "Guttertank",
                             GuttertankCharacter.TripPainClips,
@@ -158,18 +156,24 @@ namespace UltraVoice.Characters
                     __instance
                 ));
 
-            UltraVoicePlugin.Instance.StartCoroutine(DelayedPunchTripVox(__instance));
-        }
+            UltraVoicePlugin.Instance.StartCoroutine(Frustration(__instance));
 
-        static IEnumerator DelayedPunchTripVox(Guttertank tank)
-        {
-            yield return new WaitForSeconds(0.75f);
+            static IEnumerator Frustration(Guttertank tank)
+            {
+                yield return new WaitForSeconds(0.5f);
 
-            VoiceManager.PlayRandomVoice(tank, "Guttertank",
-                GuttertankCharacter.FrustratedClips,
-                GuttertankCharacter.FrustratedSubs,
-                true
-            );
+                if (tank.dead || tank == null || tank.eid.dead) yield break;
+
+                UltraVoicePlugin.Instance.StartCoroutine(UltraVoicePlugin.DelayedVox(() =>
+                            VoiceManager.PlayRandomVoice(tank, "Guttertank",
+                                GuttertankCharacter.FrustratedClips,
+                                GuttertankCharacter.FrustratedSubs,
+                                true
+                            ),
+                        () => GuttertankCharacter.FrustratedClips != null && GuttertankCharacter.FrustratedClips.Length > 0,
+                        tank
+                    ));
+            }
         }
     }
 

@@ -5,7 +5,7 @@ using UltraVoice.Utilities;
 
 namespace UltraVoice.Characters
 {
-    public class Cerberus
+    public class CerberusCharacter
     {
         // Voice line storage
         public static AudioClip PreludeClip;
@@ -53,57 +53,57 @@ namespace UltraVoice.Characters
             "You cannot run"
         };
 
-        public static void LoadVoiceLines(AssetBundle bundle, BepInEx.Logging.ManualLogSource logger)
+        public static void LoadVoiceLines(BepInEx.Logging.ManualLogSource logger)
         {
-            PreludeClip = UltraVoicePlugin.LoadClip(bundle, "cerb_WakeUpSpecial");
+            PreludeClip = UltraVoicePlugin.LoadClip("Cerberus.cerb_WakeUpSpecial.wav");
 
             AwakenClips = new[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "cerb_WakeUp1"),
-                UltraVoicePlugin.LoadClip(bundle, "cerb_WakeUp2"),
-                UltraVoicePlugin.LoadClip(bundle, "cerb_WakeUp3"),
-                UltraVoicePlugin.LoadClip(bundle, "cerb_WakeUp4"),
-                UltraVoicePlugin.LoadClip(bundle, "cerb_WakeUp5"),
-                UltraVoicePlugin.LoadClip(bundle, "cerb_WakeUp6")
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_WakeUp1.wav"),
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_WakeUp2.wav"),
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_WakeUp3.wav"),
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_WakeUp4.wav"),
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_WakeUp5.wav"),
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_WakeUp6.wav")
             };
 
             EnrageClips = new[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "cerb_Enrage1"),
-                UltraVoicePlugin.LoadClip(bundle, "cerb_Enrage2"),
-                UltraVoicePlugin.LoadClip(bundle, "cerb_Enrage3"),
-                UltraVoicePlugin.LoadClip(bundle, "cerb_Enrage4")
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_Enrage1.wav"),
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_Enrage2.wav"),
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_Enrage3.wav"),
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_Enrage4.wav")
             };
 
             ThrowClips = new[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "cerb_Orb1"),
-                UltraVoicePlugin.LoadClip(bundle, "cerb_Orb2")
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_Orb1.wav"),
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_Orb2.wav")
             };
 
             StompClips = new[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "cerb_Stomp1"),
-                UltraVoicePlugin.LoadClip(bundle, "cerb_Stomp2")
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_Stomp1.wav"),
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_Stomp2.wav")
             };
 
             TackleClips = new[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "cerb_Tackle1"),
-                UltraVoicePlugin.LoadClip(bundle, "cerb_Tackle2")
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_Tackle1.wav"),
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_Tackle2.wav")
             };
 
             DeathClips = new[]
             {
-                UltraVoicePlugin.LoadClip(bundle, "cerb_Death1"),
-                UltraVoicePlugin.LoadClip(bundle, "cerb_Death2"),
-                UltraVoicePlugin.LoadClip(bundle, "cerb_Death3")
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_Death1.wav"),
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_Death2.wav"),
+                UltraVoicePlugin.LoadClip("Cerberus.cerb_Death3.wav")
             };
 
             logger.LogInfo("Cerberus voice lines loaded successfully!");
         }
 
-}
+    }
 
     // CERBERUS PATCHES
 
@@ -125,7 +125,7 @@ namespace UltraVoice.Characters
         {
             yield return new WaitForSeconds(3.5f);
 
-            AudioClip clip = Cerberus.PreludeClip;
+            AudioClip clip = CerberusCharacter.PreludeClip;
 
             if (clip == null)
                 yield break;
@@ -186,7 +186,7 @@ namespace UltraVoice.Characters
         {
             yield return new WaitForSeconds(Random.Range(0f, 1f));
 
-            VoiceManager.PlayRandomVoice(cerb, "Cerberus", Cerberus.AwakenClips, Cerberus.AwakenSubs, colorOverride: new Color(0.65f, 0.65f, 0.65f));
+            VoiceManager.PlayRandomVoice(cerb, "Cerberus", CerberusCharacter.AwakenClips, CerberusCharacter.AwakenSubs, colorOverride: new Color(0.65f, 0.65f, 0.65f));
         }
     }
 
@@ -213,7 +213,7 @@ namespace UltraVoice.Characters
         static IEnumerator PlayEnrage(StatueBoss cerb)
         {
             yield return new WaitForSeconds(0.1f);
-            VoiceManager.PlayRandomVoice(cerb, "Cerberus", Cerberus.EnrageClips, Cerberus.EnrageSubs);
+            VoiceManager.PlayRandomVoice(cerb, "Cerberus", CerberusCharacter.EnrageClips, CerberusCharacter.EnrageSubs);
             VoiceManager.spawnVoiceEndTimes[cerb] = Time.time + 3;
         }
     }
@@ -238,7 +238,7 @@ namespace UltraVoice.Characters
         static IEnumerator PlayThrowVoice(StatueBoss cerberus)
         {
             yield return new WaitForSeconds(0.2f);
-            VoiceManager.PlayRandomVoice(cerberus, "Cerberus", Cerberus.ThrowClips, Cerberus.ThrowSubs);
+            VoiceManager.PlayRandomVoice(cerberus, "Cerberus", CerberusCharacter.ThrowClips, CerberusCharacter.ThrowSubs);
         }
     }
 
@@ -262,7 +262,7 @@ namespace UltraVoice.Characters
         static IEnumerator PlayStompVoice(StatueBoss cerberus)
         {
             yield return new WaitForSeconds(0.2f);
-            VoiceManager.PlayRandomVoice(cerberus, "Cerberus", Cerberus.StompClips, Cerberus.StompSubs);
+            VoiceManager.PlayRandomVoice(cerberus, "Cerberus", CerberusCharacter.StompClips, CerberusCharacter.StompSubs);
         }
     }
 
@@ -286,7 +286,7 @@ namespace UltraVoice.Characters
         static IEnumerator PlayTackleVoice(StatueBoss cerberus)
         {
             yield return new WaitForSeconds(0.2f);
-            VoiceManager.PlayRandomVoice(cerberus, "Cerberus", Cerberus.TackleClips, Cerberus.TackleSubs);
+            VoiceManager.PlayRandomVoice(cerberus, "Cerberus", CerberusCharacter.TackleClips, CerberusCharacter.TackleSubs);
         }
     }
 
@@ -298,10 +298,10 @@ namespace UltraVoice.Characters
             if (!UltraVoicePlugin.CerberusVoiceEnabled.value)
                 return;
 
-            if (Cerberus.DeathClips == null || Cerberus.DeathClips.Length == 0)
+            if (CerberusCharacter.DeathClips == null || CerberusCharacter.DeathClips.Length == 0)
                 return;
 
-            VoiceManager.PlayRandomVoice(__instance, "Cerberus", Cerberus.DeathClips, null, interrupt: true);
+            VoiceManager.PlayRandomVoice(__instance, "Cerberus", CerberusCharacter.DeathClips, null, interrupt: true);
         }
     }
 }
