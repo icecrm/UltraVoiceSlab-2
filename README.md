@@ -16,7 +16,7 @@ This mod plans to add different voice lines to:
 - Virtues
 - Providence
 - Sentries
-- Ferrymen (excluding Agonis and Rudraksha)
+- Ferrymen (including Agonis and Rudraksha)
 - Streetcleaners
 - Guttermen
 - Guttertanks
