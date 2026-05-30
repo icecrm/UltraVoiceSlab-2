@@ -51,4 +51,4 @@ This mod plans to add different voice lines to:
 
 ## Notice
 
-This mod is **NOT FINISHED**. and is **MOSTLY NOT MINE.** the original is by mel_33 and the original [Discord server](https://discord.gg/SwrcVeYTQa) is here.
+This mod is **NOT FINISHED**. and is **MOSTLY NOT MINE.** the original is by mel33 and the original [Discord server](https://discord.gg/SwrcVeYTQa) is here.
