@@ -41,7 +41,7 @@ This mod plans to add different voice lines to:
 - Eggs Toast (Voice of swordsmachine)
 - Uta Utane/UTAU (placeholder voice)
 - radwazhere (Voice of Cerberus)
-- Doodles (Voice of Virtue and Providence)
+- Doodles (Voice of Virtue, Providence, fem Mindflayer)
 - indie_artz182 (Voice of V2)
 - ics cram/Soleil (Voice of Sentry, Ferryman, Streetcleaner)
 - MoonAU/DreamsEndAgate (Voice of Earthmover)
@@ -51,5 +51,4 @@ This mod plans to add different voice lines to:
 
 ## Notice
 
-This mod is **NOT FINISHED**. and is **MOSTLY NOT MINE.** the original is by mof_33/mel and the discord server is here
-[Discord server](https://discord.gg/SwrcVeYTQa).
+This mod is **NOT FINISHED**. and is **MOSTLY NOT MINE.** the original is by mel_33 and the original [Discord server](https://discord.gg/SwrcVeYTQa) is here.
