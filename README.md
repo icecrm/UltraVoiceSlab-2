@@ -46,6 +46,7 @@ This mod plans to add different voice lines to:
 - ics cram/Soleil (Voice of Sentry, Ferryman, Streetcleaner)
 - MoonAU/DreamsEndAgate (Voice of Earthmover)
 - Sangue (voice of Mirror Reaper, masc Mindflayer)
+- Barry (voice of Guttermen & Guttertanks
 
 ---
 
