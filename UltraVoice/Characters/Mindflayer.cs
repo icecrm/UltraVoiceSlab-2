@@ -45,7 +45,7 @@ namespace UltraVoice.Characters
 
         public static readonly string[] EnrageSubs =
         {
-            "You have made a: very. bad decision.",
+            "You have made a: very. bad. decision.",
             "Your inability to listen has been noted.",
             "Your inability to listen has. been. noted.",
             "You are not a good subject."
