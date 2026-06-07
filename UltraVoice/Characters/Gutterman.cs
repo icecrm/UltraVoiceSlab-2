@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using UnityEngine;
 using UltraVoice.Utilities;
 
@@ -8,37 +8,50 @@ namespace UltraVoice.Characters
     {
         // Voice line storage
         public static AudioClip[] SpawnClips;
+        public static AudioClip[] SpinUpClips;
+        public static AudioClip[] LostSightClips;
         public static AudioClip[] ShieldBreakClips;
         public static AudioClip[] EnrageClips;
         public static AudioClip[] DeathClips;
         public static AudioClip[] ParryClips;
-        public static AudioClip[] PunchClips;
 
         // Subtitle storage
         public static readonly string[] SpawnSubs =
         {
-            "THIS WILL NOT TAKE LONG.",
-            "WHO MUST I KILL TODAY?",
-            "IT IS TIME TO KILL.",
-            "FOR THE MOTHERLAND!",
-            "SAY YOUR PRAYERS.",
-            "ЗА РОДИНУ!"
+            "UNKNOWN HOSTILE IDENTIFIED.",
+            "UNKNOWN MODEL IDENTIFIED.",
+            "SEARCHING FOR HOSTILES…",
+            "UNIT IS READY FOR DEPLOYMENT.",
+            "I am sorry, mother…"
+        };
+
+        public static readonly string[] SpinUpSubs =
+        {
+            "SUPPRESSING FIRE!",
+            "CLEARING THE TRENCH."
+        };
+
+        public static readonly string[] LostSightSubs =
+        {
+            "DON'T MOVE!",
+            "HOLD IT!",
+            "Вернись сюда!"
         };
 
         public static readonly string[] ShieldBreakSubs =
         {
-            "SHIELD DOWN!",
-            "SHIELD BROKEN!",
-            "SHIELD DESTROYED!",
+            "ALL OTHER UNITS: MY SHIELD HAS BEEN DOWNED!",
+            "REQUESTING ASSISTANCE: MY DEFENSE IS NULL.",
+            "DEFENSE NULLIFIED. TERMINATING TARGET.",
+            "Please. don't make this any harder than it needs to be."
         };
 
         public static readonly string[] EnrageSubs =
         {
-            "THAT COST MONEY!",
-            "YOU WILL PAY FOR THIS!",
-            "OH, YOU MAKE ME SO MAD…",
-            "ЧОРТ ПОБЕРИ!",
-            "СУКИН СЫН!"
+            "HOSTILE IS READY FOR PERMANENT RETIREMENT.",
+            "TARGET HAS REQUESTED IMMEDIATE TERMINATION.",
+            "KEEP YOUR DISTANCE!",
+            "Please just. stay at rest…"
         };
 
         public static void LoadVoiceLines(BepInEx.Logging.ManualLogSource logger)
@@ -49,15 +62,22 @@ namespace UltraVoice.Characters
                 UltraVoicePlugin.LoadClip("Gutterman.gm_Spawn2.wav"),
                 UltraVoicePlugin.LoadClip("Gutterman.gm_Spawn3.wav"),
                 UltraVoicePlugin.LoadClip("Gutterman.gm_Spawn4.wav"),
-                UltraVoicePlugin.LoadClip("Gutterman.gm_Spawn5.wav"),
-                UltraVoicePlugin.LoadClip("Gutterman.gm_Spawn6.wav")
+                UltraVoicePlugin.LoadClip("Gutterman.gm_Spawn5.wav")
             };
 
-            PunchClips = new AudioClip[]
+            SpinUpClips = new AudioClip[]
             {
-                UltraVoicePlugin.LoadClip("Gutterman.gm_Punch1.wav"),
-                UltraVoicePlugin.LoadClip("Gutterman.gm_Punch2.wav"),
-                UltraVoicePlugin.LoadClip("Gutterman.gm_Punch3.wav")
+                UltraVoicePlugin.LoadClip("Gutterman.gm_RevUp1.wav"),
+                UltraVoicePlugin.LoadClip("Gutterman.gm_RevUp2.wav"),
+                UltraVoicePlugin.LoadClip("Gutterman.gm_RevUp3.wav"),
+                UltraVoicePlugin.LoadClip("Gutterman.gm_RevUp4.wav")
+            };
+
+            LostSightClips = new AudioClip[]
+            {
+                UltraVoicePlugin.LoadClip("Gutterman.gm_LostSight1.wav"),
+                UltraVoicePlugin.LoadClip("Gutterman.gm_LostSight2.wav"),
+                UltraVoicePlugin.LoadClip("Gutterman.gm_LostSight3.wav")
             };
 
             ShieldBreakClips = new AudioClip[]
@@ -72,8 +92,7 @@ namespace UltraVoice.Characters
                 UltraVoicePlugin.LoadClip("Gutterman.gm_Enrage1.wav"),
                 UltraVoicePlugin.LoadClip("Gutterman.gm_Enrage2.wav"),
                 UltraVoicePlugin.LoadClip("Gutterman.gm_Enrage3.wav"),
-                UltraVoicePlugin.LoadClip("Gutterman.gm_Enrage4.wav"),
-                UltraVoicePlugin.LoadClip("Gutterman.gm_Enrage5.wav"),
+                UltraVoicePlugin.LoadClip("Gutterman.gm_Enrage4.wav")
             };
 
             DeathClips = new AudioClip[]
@@ -111,8 +130,7 @@ namespace UltraVoice.Characters
             VoiceManager.PlayRandomVoice(__instance, "Gutterman",
                 GuttermanCharacter.SpawnClips,
                 GuttermanCharacter.SpawnSubs,
-                false,
-                randomPitch: true
+                false
             );
         }
     }
@@ -128,14 +146,12 @@ namespace UltraVoice.Characters
                 VoiceManager.PlayRandomVoice(__instance, "Gutterman",
                 GuttermanCharacter.EnrageClips,
                 GuttermanCharacter.EnrageSubs,
-                true,
-                randomPitch: true
+                true
             );
             else VoiceManager.PlayRandomVoice(__instance, "Gutterman",
                 GuttermanCharacter.ShieldBreakClips,
                 GuttermanCharacter.ShieldBreakSubs,
-                true,
-                randomPitch: true
+                false
             );
         }
     }
@@ -150,8 +166,7 @@ namespace UltraVoice.Characters
             VoiceManager.PlayRandomVoice(__instance, "Gutterman",
                 GuttermanCharacter.DeathClips,
                 null,
-                true,
-                randomPitch: true
+                true
             );
         }
     }
@@ -169,24 +184,7 @@ namespace UltraVoice.Characters
             VoiceManager.PlayRandomVoice(__instance, "Gutterman",
                 GuttermanCharacter.ParryClips,
                 null,
-                true,
-                randomPitch: true
-            );
-        }
-    }
-
-    [HarmonyPatch(typeof(Gutterman), nameof(Gutterman.ShieldBash))]
-    class GuttermanShieldBashPatch
-    {
-        static void Postfix(Gutterman __instance)
-        {
-            if (!UltraVoicePlugin.GuttermanVoiceEnabled.value) return;
-
-            VoiceManager.PlayRandomVoice(__instance, "Gutterman",
-                GuttermanCharacter.PunchClips,
-                null,
-                false,
-                randomPitch: true
+                true
             );
         }
     }
