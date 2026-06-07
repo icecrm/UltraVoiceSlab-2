@@ -36,18 +36,17 @@ This mod plans to add different voice lines to:
 
 ## Credit/Special Thanks
 
-- mel33 (for helping me figure this out and letting me do this)
+- mel33 (for making the mod, helping, and letting me do this)
 - Garrison (Voice of swordsmachine)
-- Eggs Toast (Voice of swordsmachine)
-- Uta Utane/UTAU (placeholder voice)
+- Eggs Toast/eggcasket (Voice of swordsmachine)
 - radwazhere (Voice of Cerberus)
 - Doodles (Voice of Virtue, Providence, fem Mindflayer)
 - indie_artz182 (Voice of V2)
 - ics cram/Soleil (Voice of Sentry, Ferryman, Streetcleaner)
 - MoonAU/DreamsEndAgate (Voice of Earthmover)
 - Sangue (voice of Mirror Reaper, masc Mindflayer)
-- Barry (voice of Guttermen & Guttertanks
-
+- Barry/Xavinoticia (voice of Guttermen & Guttertanks
+- Uta Utane/UTAU (placeholder voice)
 ---
 
 ## Notice
