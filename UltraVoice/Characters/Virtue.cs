@@ -27,7 +27,7 @@ namespace UltraVoice.Characters
         {
             "The light shall cleanse you!",
             "Do not make this harder for yourself!",
-            "This is my purpose.",
+            "This. is my. purpose.",
             "END THIS!",
             "Let this be quick."
         };
