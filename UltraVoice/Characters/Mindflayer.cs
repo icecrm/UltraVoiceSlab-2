@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using System.Collections;
 using UnityEngine;
 using UltraVoice.Utilities;
@@ -21,34 +21,34 @@ namespace UltraVoice.Characters
         // Subtitle storage
         public static readonly string[] SpawnSubs =
         {
-            "I require your blood.",
-            "You appear to contain blood.",
-            "You are suitable for blood extraction.",
-            "Please donate your blood to me.",
-            "Thank you for your imminent blood donation."
+            "you are suitable for Immediate Termination.",
+            "This will be over quickly.",
+            "Do not make this harder than it needs to be.",
+            "You must first be incapacitated.",
+            "Let this happen."
         };
 
         public static readonly string[] ChatterSubs =
         {
-            "This process will be brief.",
-            "Your cooperation is appreciated.",
-            "Please do not resist.",
-            "Continued resistance is unnecessary."
+            "Restraining target.",
+            "Clear the immediate area.",
+            "Do not resist.",
+            "Please be advised that a noticeable taste of blood is intentional."
         };
 
         public static readonly string[] MeleeSubs =
         {
-            "Please maintain distance.",
-            "Kindly step back.",
-            "You are too close."
+            "Please keep your distance.",
+            "Please stand back.",
+            "Please, do not move."
         };
 
         public static readonly string[] EnrageSubs =
         {
-            "You have made a very unwise choice.",
-            "Your behavior is unacceptable.",
-            "This is your final warning.",
-            "I will correct you by force."
+            "You have made a: very. bad decision.",
+            "Your inability to listen has been noted.",
+            "Your inability to listen has. been. noted.",
+            "You are not a good subject."
         };
 
         public static bool IsMascMindflayer(Mindflayer mf)
@@ -148,8 +148,7 @@ namespace UltraVoice.Characters
 
             VoiceManager.PlayRandomVoice(__instance, "Mindflayer",
                 clips,
-                MindflayerCharacter.SpawnSubs,
-                randomPitch: true
+                MindflayerCharacter.SpawnSubs
             );
         }
     }
@@ -186,8 +185,7 @@ namespace UltraVoice.Characters
 
                 VoiceManager.PlayRandomVoice(__instance, "Mindflayer",
                     clips,
-                    MindflayerCharacter.ChatterSubs,
-                    randomPitch: true
+                    MindflayerCharacter.ChatterSubs
                 );
             }
         }
@@ -220,8 +218,7 @@ namespace UltraVoice.Characters
 
             VoiceManager.PlayRandomVoice(mf, "Mindflayer",
                 clips,
-                MindflayerCharacter.MeleeSubs,
-                randomPitch: true
+                MindflayerCharacter.MeleeSubs
             );
         }
     }
@@ -242,8 +239,7 @@ namespace UltraVoice.Characters
             VoiceManager.PlayRandomVoice(__instance, "Mindflayer",
                 clips,
                 MindflayerCharacter.EnrageSubs,
-                interrupt: true,
-                randomPitch: true
+                interrupt: true
             );
         }
     }
