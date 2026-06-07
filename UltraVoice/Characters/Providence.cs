@@ -24,7 +24,7 @@ namespace UltraVoice.Characters
 
         public static readonly string[] AttackSubs =
         {
-            "mulleB araP ,mecaP siV iS",
+            ".mulleB araP ,mecaP siV iS",
             "The light is inevitable.",
             "I will unmake you.",
             "Your fate is written.",
