@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,20 +28,20 @@ namespace UltraVoice.Characters
         // Subtitle storage
         public static readonly string[] ChatterSubs =
         {
-            "Do keep up with me",
-            "You can do better than that",
-            "Is this your best effort",
-            "Keep your eye open now",
-            "Mind your footing",
+            "Watch your step.",
+            "I wouldn’t have done that if I were you.",
+            "I’m not sure why I expected more of you.",
+            "Is this your best effort?",
+            "You really are the lesser model.",
         };
 
         public static readonly string[] ChatterPissedSubs =
         {
-            "What's the matter? Does your arm hurt!?",
-            "You really think you can kill me now!?",
-            "I won't lose to you again!",
-            "I'll make quick work of you this time!",
-            "You don't stand a chance against me!"
+            "MAKE THIS EASY FOR BOTH OF US AND JUST QUIT!",
+            "FEELING USED? YOU SHOULD!",
+            "HEY, LOOK OVER THERE!",
+            "KEEP YOUR PACE UP!",
+            "JUST DIE ALREADY!"
         };
 
         public static UnityEngine.Color V2Color = new UnityEngine.Color(1f, 1f, 1f);
@@ -143,21 +143,21 @@ namespace UltraVoice.Characters
             V2Character.V2IntroTime = Time.time;
             VoiceManager.spawnVoiceEndTimes[v2] = Time.time + V2Character.IntroFirstClip.length;
 
-            VoiceManager.ShowSubtitle("So, you're my predecessor", src);
-
-            yield return new WaitForSeconds(2.25f);
-
-            if (v2 == null || !v2.inIntro)
-                yield break;
-
-            VoiceManager.ShowSubtitle("How quaint...", src);
+            VoiceManager.ShowSubtitle("I must admit,", src);
 
             yield return new WaitForSeconds(1.25f);
 
             if (v2 == null || !v2.inIntro)
                 yield break;
 
-            VoiceManager.ShowSubtitle("I suppose I'll have to show you what an upgrade looks like.", src);
+            VoiceManager.ShowSubtitle("I’m quite impressed by your efforts;", src);
+
+            yield return new WaitForSeconds(2.25f);
+
+            if (v2 == null || !v2.inIntro)
+                yield break;
+
+            VoiceManager.ShowSubtitle("unfortunately this is where your journey ends.", src);
         }
     }
 
@@ -193,7 +193,7 @@ namespace UltraVoice.Characters
                 v2,
                 "V2IntroFirstRestart",
                 V2Character.IntroFirstRestartClip,
-                "Back so soon?",
+                "Still kicking, are we?",
                 true
             );
 
@@ -215,7 +215,7 @@ namespace UltraVoice.Characters
                 v2,
                 "V2IntroSecondRestart",
                 V2Character.IntroSecondRestartClip,
-                "Just stay down!",
+                "JUST STAY DOWN!",
                 true
             );
 
@@ -312,11 +312,11 @@ namespace UltraVoice.Characters
             if (src == null)
                 yield break;
 
-            VoiceManager.ShowSubtitle("Enough", src);
+            VoiceManager.ShowSubtitle("wow ok asshole", src);
 
             yield return new WaitForSeconds(1.5f);
 
-            VoiceManager.ShowSubtitle("You've proven your point...", src);
+            VoiceManager.ShowSubtitle("didn’t even let me finish.", src);
         }
 
         static IEnumerator PlayDefeat(V2 v2)
@@ -334,7 +334,7 @@ namespace UltraVoice.Characters
             if (src == null)
                 yield break;
 
-            VoiceManager.ShowSubtitle("This isn't over! Mark my words...", src);
+            VoiceManager.ShowSubtitle("Ugh... This will NOT be the last time we meet.", src);
         }
 
         static IEnumerator PlayEscape(V2 v2)
@@ -345,7 +345,7 @@ namespace UltraVoice.Characters
                 v2,
                 "V2Escape",
                 V2Character.EscapingClip,
-                "I won't give you the PLEASURE of killing me!",
+                "NO! I’M NOT LETTING YOU BEST ME HERE!",
                 true
             );
         }
@@ -358,7 +358,7 @@ namespace UltraVoice.Characters
                 v2.transform,
                 "V2Realization",
                 V2Character.FlailingClip,
-                "No... NO!",
+                "[SCREAM]",
                 true
             );
         }
@@ -406,7 +406,7 @@ namespace UltraVoice.Characters
                 __instance,
                 "V2Enrage",
                 V2Character.EnragePunchedClip,
-                "EXCUSE ME?!",
+                "I’LL TEAR YOU LIMB FROM LIMB!",
                 true
             );
         }
@@ -424,7 +424,7 @@ namespace UltraVoice.Characters
                 __instance,
                 "V2Enrage",
                 V2Character.EnragePatienceClip,
-                "COME HERE!"
+                "GOD DAMN IT!"
             );
         }
     }
@@ -454,8 +454,6 @@ namespace UltraVoice.Characters
 
         static IEnumerator PlayCutsceneVoice(Animator v2)
         {
-            yield return new WaitForSeconds(0.25f);
-
             V2Character.V2CutsceneVoicePlayed = true;
 
             var src = VoiceManager.CreateVoiceSource(
@@ -464,17 +462,17 @@ namespace UltraVoice.Characters
                 V2Character.IntroSecondClip
             );
 
-            VoiceManager.ShowSubtitle("There you are.", src);
+            VoiceManager.ShowSubtitle("Well… I’m sure you’re DYING to fight again,", src);
 
             if (v2 == null || !src.isPlaying) yield break;
-            yield return new WaitForSeconds(1.25f);
+            yield return new WaitForSeconds(2.25f);
 
-            VoiceManager.ShowSubtitle("I was wondering how long you'd keep my arm...", src);
+            VoiceManager.ShowSubtitle("and I’m eager to help.", src);
 
             if (v2 == null || !src.isPlaying) yield break;
-            yield return new WaitForSeconds(2.75f);
+            yield return new WaitForSeconds(1.75f);
 
-            VoiceManager.ShowSubtitle("Don't worry, I'll pry it off you myself.", src);
+            VoiceManager.ShowSubtitle("Let’s try again, shall we?", src);
         }
     }
 
@@ -511,7 +509,7 @@ namespace UltraVoice.Characters
                 __instance.transform,
                 "V2Death",
                 V2Character.DeathClip,
-                "NOOOOOOO",
+                "[SCREAM]",
                 true
             );
             V2Character.V2DeathPlayed = true;
