@@ -19,7 +19,7 @@ namespace UltraVoice.Characters
         public static readonly string[] SpawnSubs =
         {
             "UNIT DEPLOYED.",
-            "READY FOR WARFARE!",
+            "READY FOR WARFARE.",
             "ALL SYSTEMS READY.",
             "FOR THE FATHERLAND!"
         };
