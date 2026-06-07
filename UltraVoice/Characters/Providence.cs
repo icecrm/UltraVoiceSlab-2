@@ -1,0 +1,172 @@
+﻿using HarmonyLib;
+using System.Collections;
+using UltraVoice.Utilities;
+using UnityEngine;
+
+namespace UltraVoice.Characters
+{
+    public class ProvidenceCharacter
+    {
+        // Voice line storage
+        public static AudioClip[] SpawnClips;
+        public static AudioClip[] AttackClips;
+        public static AudioClip[] DodgeClips;
+
+        // Subtitle storage
+        public static readonly string[] SpawnSubs =
+        {
+            "We watch when he cannot.",
+            "All eyes are upon you.",
+            "It is best that you surrender.",
+            "You are surrounded.",
+            "Silence calls us here."
+        };
+
+        public static readonly string[] AttackSubs =
+        {
+            "mulleB araP ,mecaP siV iS",
+            "The light is inevitable.",
+            "I will unmake you.",
+            "Your fate is written.",
+            "The weapons of our warfarearenotofthe- [Unintelligible]"
+        };
+
+        public static readonly string[] DodgeSubs =
+        {
+            "We know what you will and what you have.",
+            "We know all possibilities.",
+            "You were destined to fail."
+        };
+
+        public static bool IsProvidence(Drone d)
+        {
+            if (d == null || d.eid == null)
+                return false;
+
+            if (d.GetComponent<DroneFlesh>() != null)
+                return false;
+
+            return d.eid.enemyType == EnemyType.Providence;
+        }
+
+        public static void LoadVoiceLines(BepInEx.Logging.ManualLogSource logger)
+        {
+            SpawnClips = new AudioClip[]
+            {
+                UltraVoicePlugin.LoadClip("Providence.prov_Spawn1.wav"),
+                UltraVoicePlugin.LoadClip("Providence.prov_Spawn2.wav"),
+                UltraVoicePlugin.LoadClip("Providence.prov_Spawn3.wav"),
+                UltraVoicePlugin.LoadClip("Providence.prov_Spawn4.wav"),
+                UltraVoicePlugin.LoadClip("Providence.prov_Spawn5.wav")
+            };
+
+            AttackClips = new AudioClip[]
+            {
+                UltraVoicePlugin.LoadClip("Providence.prov_Chatter1.wav"),
+                UltraVoicePlugin.LoadClip("Providence.prov_Chatter2.wav"),
+                UltraVoicePlugin.LoadClip("Providence.prov_Chatter3.wav"),
+                UltraVoicePlugin.LoadClip("Providence.prov_Chatter4.wav"),
+                UltraVoicePlugin.LoadClip("Providence.prov_Chatter5.wav")
+            };
+
+            DodgeClips = new AudioClip[]
+            {
+                UltraVoicePlugin.LoadClip("Providence.prov_Dodge1.wav"),
+                UltraVoicePlugin.LoadClip("Providence.prov_Dodge2.wav"),
+                UltraVoicePlugin.LoadClip("Providence.prov_Dodge3.wav"),
+            };
+
+            logger.LogInfo("Providence voice lines loaded successfully!");
+        }
+
+    }
+
+    [HarmonyPatch(typeof(Drone), "Start")]
+    class ProvidenceSpawnPatch
+    {
+        static void Postfix(Drone __instance)
+        {
+            if (!UltraVoicePlugin.ProvidenceVoiceEnabled.value) return;
+
+            if (!ProvidenceCharacter.IsProvidence(__instance))
+                return;
+
+            VoiceManager.enemySpawnTimes[__instance] = Time.time;
+
+            VoiceManager.PlayRandomVoice(__instance, "Providence",
+                ProvidenceCharacter.SpawnClips,
+                ProvidenceCharacter.SpawnSubs
+            );
+        }
+    }
+
+
+    [HarmonyPatch(typeof(Drone), "Shoot")]
+    class ProvidenceShootPatch
+    {
+        static void Postfix(Drone __instance)
+        {
+            if (!UltraVoicePlugin.ProvidenceVoiceEnabled.value) return;
+
+            if (!ProvidenceCharacter.IsProvidence(__instance))
+                return;
+
+            if (!VoiceManager.CheckCooldown(__instance, 5f))
+                return;
+
+            if (VoiceManager.TooSoonAfterSpawn(__instance, 2f))
+                return;
+
+            VoiceManager.PlayRandomVoice(__instance, "Providence",
+                ProvidenceCharacter.AttackClips,
+                ProvidenceCharacter.AttackSubs
+            );
+        }
+    }
+
+    [HarmonyPatch(typeof(Drone), "ShootSecondary")]
+    class ProvidencePincerPatch
+    {
+        static void Postfix(Drone __instance)
+        {
+            if (!UltraVoicePlugin.ProvidenceVoiceEnabled.value) return;
+
+            if (!ProvidenceCharacter.IsProvidence(__instance))
+                return;
+
+            if (!VoiceManager.CheckCooldown(__instance, 5f))
+                return;
+
+            if (VoiceManager.TooSoonAfterSpawn(__instance, 2f))
+                return;
+
+            VoiceManager.PlayRandomVoice(__instance, "Providence",
+                ProvidenceCharacter.AttackClips,
+                ProvidenceCharacter.AttackSubs
+            );
+        }
+    }
+
+    [HarmonyPatch(typeof(Drone), "DodgeLaugh")]
+    class ProvidenceDodgePatch
+    {
+        static void Postfix(Drone __instance)
+        {
+            if (!UltraVoicePlugin.ProvidenceVoiceEnabled.value) return;
+
+            if (!ProvidenceCharacter.IsProvidence(__instance))
+                return;
+
+            if (!VoiceManager.CheckCooldown(__instance, 4f))
+                return;
+
+            if (VoiceManager.TooSoonAfterSpawn(__instance, 4f))
+                return;
+
+            VoiceManager.PlayRandomVoice(__instance, "Providence",
+                ProvidenceCharacter.DodgeClips,
+                ProvidenceCharacter.DodgeSubs
+            );
+        }
+    }
+}
