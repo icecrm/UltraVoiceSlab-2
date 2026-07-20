@@ -1,6 +1,6 @@
 # UltraVoiceSlab (version 0.0.5)
 
-# THIS MOD IS NOT DONE, LET ALONE STARTED! DO NOT USE THIS FORK YET.
+# THIS MOD IS NOT DONE! DO NOT USE THIS FORK YET.
 
 UltraVoice is a mod for ULTRAKILL that adds custom voice lines to enemies, giving them more personality during combat and cutscenes.
 UltraVoiceSlab is an alternative version i made with my friends, with different writing and VAs.
