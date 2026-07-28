@@ -42,10 +42,10 @@ This mod plans to add different voice lines to:
 - radwazhere (Voice of Cerberus)
 - Doodles (Voice of Virtue, Providence, fem Mindflayer)
 - indie_artz182 (Voice of V2)
-- ics cram/Soleil (Voice of Sentry, Ferryman, Streetcleaner)
+- ics cram/Soleil (Voice of Sentry, Ferryman, Streetcleaner, V2)
 - MoonAU/DreamsEndAgate (Voice of Earthmover)
 - Sangue (voice of Mirror Reaper, masc Mindflayer)
-- Barry/Xavinoticia (voice of Guttermen & Guttertanks
+- Barry/Xavinoticia (voice of Guttermen & Guttertanks)
 - Uta Utane/UTAU (placeholder voice)
 ---
 
