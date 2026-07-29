@@ -1,9 +1,9 @@
-# UltraVoiceSlab (version 0.0.5)
+# UltraVoiceSlab (version 0.6)
 
 # THIS MOD IS NOT DONE! DO NOT USE THIS FORK YET.
 
 UltraVoice is a mod for ULTRAKILL that adds custom voice lines to enemies, giving them more personality during combat and cutscenes.
-UltraVoiceSlab is an alternative version i made with my friends, with different writing and VAs.
+UltraVoice Slab is an alternative version i made with my friends, with different writing and VAs.
 ---
 
 ## Current Character Roster
@@ -41,8 +41,8 @@ This mod plans to add different voice lines to:
 - Eggs Toast/eggcasket (Voice of swordsmachine)
 - radwazhere (Voice of Cerberus)
 - Doodles (Voice of Virtue, Providence, fem Mindflayer)
-- indie_artz182 (Voice of V2)
-- ics cram/Soleil (Voice of Sentry, Ferryman, Streetcleaner, V2)
+- indie_artz182 (Voice of V2, alt providence)
+- ics cram/Soleil (Voice of Sentry, Ferryman, Streetcleaner, V2 (temporarily))
 - MoonAU/DreamsEndAgate (Voice of Earthmover)
 - Sangue (voice of Mirror Reaper, masc Mindflayer)
 - Barry/Xavinoticia (voice of Guttermen & Guttertanks)
