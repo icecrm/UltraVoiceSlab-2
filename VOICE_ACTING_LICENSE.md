@@ -14,4 +14,4 @@ Distributing the code under the GPL-3.0 does **not** grant any right to the voic
 
 ## Right of Removal
 
-Any voice actor may, at any time and for any reason, request the removal of their recordings from UltraVoice Retaken or from any fork, redistribution, or derivative work. Upon such a request, the affected recordings **must be removed**.
+Any voice actor may, at any time and for any reason, request the removal of their recordings from UltraVoice Slab or from any fork, redistribution, or derivative work. Upon such a request, the affected recordings **must be removed**.
