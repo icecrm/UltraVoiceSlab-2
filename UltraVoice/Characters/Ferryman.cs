@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using System.Collections;
 using UnityEngine;
 using UltraVoice.Utilities;
@@ -25,19 +25,19 @@ namespace UltraVoice.Characters
         // Subtitle storage
         public static readonly string[] ChatterSubs =
         {
-            "Have at you!",
-            "Come on!",
-            "Come at me!",
-            "Try me!"
+            "Give me your best shot!",
+            "Have at ye!",
+            "I helm this ship!",
+            "I shan't fail you again…"
         };
 
         public static readonly string[] SpawnSubs =
         {
-            "Another soul to face my wrath.",
-            "If you seek death, you have found it.",
-            "You are not the first. You will not be the last.",
-            "I have no mercy left to give.",
-            "I grow weary of your kind."
+            "Away with you!",
+            "Those who seek an early death shall find it!",
+            "You show your guilt with pride. You disgust me.",
+            "I know what thy kind has done!",
+            "Come on you pansy!"
         };
 
         public static bool IsAgonisOrRudraksha(Ferryman ferryman)
@@ -153,8 +153,7 @@ namespace UltraVoice.Characters
             else if (!FerrymanCharacter.IsAgonisOrRudraksha(__instance))
                 VoiceManager.PlayRandomVoice(__instance, "Ferryman",
                     FerrymanCharacter.SpawnClips,
-                    FerrymanCharacter.SpawnSubs,
-                    randomPitch: true
+                    FerrymanCharacter.SpawnSubs
                 );
             else if (FerrymanCharacter.IsAgonis(__instance))
                 VoiceManager.CreateVoiceSource(__instance, "Ferryman",
@@ -163,7 +162,7 @@ namespace UltraVoice.Characters
             else if (FerrymanCharacter.IsRudraksha(__instance))
                 VoiceManager.CreateVoiceSource(__instance, "Ferryman",
                     FerrymanCharacter.RudrakshaIntroClip,
-                    "Leave us alone!"
+                    "Away! AWAY!"
                 );
 
             static IEnumerator PlayNoCoin(Ferryman ferry)
@@ -180,12 +179,12 @@ namespace UltraVoice.Characters
                     yield break;
 
                 if (!src) yield break;
-                VoiceManager.ShowSubtitle("Gabriel warned me of your kind", src, new Color(0f, 0.66f, 0.77f));
+                VoiceManager.ShowSubtitle("I know what your kind is responsible for!", src, new Color(0f, 0.66f, 0.77f));
 
                 yield return new WaitForSeconds(2.75f);
 
                 if (!src) yield break;
-                VoiceManager.ShowSubtitle("I will not share his failure", src, new Color(0f, 0.66f, 0.77f));
+                VoiceManager.ShowSubtitle("You shall go no further!", src, new Color(0f, 0.66f, 0.77f));
             }
 
             static IEnumerator PlayCoin(Ferryman ferry)
@@ -202,12 +201,12 @@ namespace UltraVoice.Characters
                     yield break;
 
                 if (!src) yield break;
-                VoiceManager.ShowSubtitle("You WRETCH", src, new Color(0f, 0.66f, 0.77f));
+                VoiceManager.ShowSubtitle("you CHEATER!", src, new Color(0f, 0.66f, 0.77f));
 
                 yield return new WaitForSeconds(1.5f);
 
                 if (!src) yield break;
-                VoiceManager.ShowSubtitle("I granted you passage, and you repay me with DECEIT!?", src, new Color(0f, 0.66f, 0.77f));
+                VoiceManager.ShowSubtitle("You think you can fool ME and get away!?", src, new Color(0f, 0.66f, 0.77f));
             }
         }
     }
@@ -231,7 +230,7 @@ namespace UltraVoice.Characters
                     ferry,
                     "FerrymanSkip",
                     FerrymanCharacter.CoinSkipClip,
-                    "Hm?",
+                    "Eh?",
                     true
                 );
 
@@ -241,12 +240,12 @@ namespace UltraVoice.Characters
                 yield return new WaitForSeconds(1.5f);
 
                 if (!src) yield break;
-                VoiceManager.ShowSubtitle("This shall do", src, new Color(0f, 0.66f, 0.77f));
+                VoiceManager.ShowSubtitle("Well... I suppose the toll is paid.", src, new Color(0f, 0.66f, 0.77f));
 
                 yield return new WaitForSeconds(1.5f);
 
                 if (!src) yield break;
-                VoiceManager.ShowSubtitle("You may pass", src, new Color(0f, 0.66f, 0.77f));
+                VoiceManager.ShowSubtitle("I shall grant you passage. This time.", src, new Color(0f, 0.66f, 0.77f));
             }
         }
     }
@@ -281,8 +280,7 @@ namespace UltraVoice.Characters
 
             VoiceManager.PlayRandomVoice(__instance, "Ferryman",
                 FerrymanCharacter.ChatterClips,
-                FerrymanCharacter.ChatterSubs,
-                randomPitch: true
+                FerrymanCharacter.ChatterSubs
             );
         }
     }
@@ -320,9 +318,9 @@ namespace UltraVoice.Characters
 
                 FerrymanCharacter.FerrymanPhaseChangePlayed = true;
 
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(2.5f);
 
-                VoiceManager.ShowSubtitle("I am not finished with you!", src, new Color(0f, 0.66f, 0.77f));
+                VoiceManager.ShowSubtitle("May their path become dark and slippery, and may the angel of the lord pursue!", src, new Color(0f, 0.66f, 0.77f));
             }
         }
     }
@@ -340,8 +338,7 @@ namespace UltraVoice.Characters
             VoiceManager.PlayRandomVoice(__instance, "Ferryman",
                 FerrymanCharacter.DeathClips,
                 null,
-                true,
-                randomPitch: true
+                true
             );
         }
     }
@@ -375,7 +372,7 @@ namespace UltraVoice.Characters
 
                 yield return new WaitForSeconds(1.5f);
 
-                VoiceManager.ShowSubtitle("No, not now...", src, new Color(0f, 0.66f, 0.77f));
+                VoiceManager.ShowSubtitle("CAN'T YOU JUST LEAVE US BE??", src, new Color(0f, 0.66f, 0.77f));
             }
         }
     }
@@ -412,7 +409,7 @@ namespace UltraVoice.Characters
                 __instance,
                 "FerrymanApproach",
                 FerrymanCharacter.ApproachClip,
-                "Who goes there?",
+                "What do you think you are?",
                 subtitleColor: new Color(0f, 0.66f, 0.77f)
             );
         }
