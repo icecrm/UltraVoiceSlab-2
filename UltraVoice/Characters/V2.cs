@@ -1,8 +1,10 @@
+using GameConsole.Commands;
 using HarmonyLib;
 using System.Collections;
+using System.Security.Cryptography;
+using UltraVoice.Utilities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UltraVoice.Utilities;
 
 namespace UltraVoice.Characters
 {
@@ -28,18 +30,18 @@ namespace UltraVoice.Characters
         // Subtitle storage
         public static readonly string[] ChatterSubs =
         {
-            "Watch your step.",
-            "I wouldn’t have done that if I were you.",
-            "I’m not sure why I expected more of you.",
-            "Is this your best effort?",
-            "You really are the lesser model.",
+            "I do feel pity for you in a way, you know.",
+            "Unpredictability leads to difficulty, thankfully you are very predictable.",
+            "I’m not sure why I would've expected more of you.",
+            "Is this your best effort? I'm shockingly not surprised.",
+            "It's always nice watching someone skilled and I'm not referring to you of course.",
         };
 
         public static readonly string[] ChatterPissedSubs =
         {
-            "MAKE THIS EASY FOR BOTH OF US AND JUST QUIT!",
-            "FEELING USED? YOU SHOULD!",
-            "HEY, LOOK OVER THERE!",
+            "JUST GIVE UP AND LET YOURSELF LOSE!",
+            "FEELING USED? GOOD!",
+            "YOU'RE NOT THE ONLY ONE WHO GOT A CHANGE!",
             "KEEP YOUR PACE UP!",
             "JUST DIE ALREADY!"
         };
@@ -145,19 +147,19 @@ namespace UltraVoice.Characters
 
             VoiceManager.ShowSubtitle("I must admit,", src);
 
-            yield return new WaitForSeconds(1.25f);
+            yield return new WaitForSeconds(0.25f);
 
             if (v2 == null || !v2.inIntro)
                 yield break;
 
-            VoiceManager.ShowSubtitle("I’m quite impressed by your efforts;", src);
+            VoiceManager.ShowSubtitle("I’m quite impressed by your effort; but that is where my compliments end,", src);
 
-            yield return new WaitForSeconds(2.25f);
+            yield return new WaitForSeconds(1.50f);
 
             if (v2 == null || !v2.inIntro)
                 yield break;
 
-            VoiceManager.ShowSubtitle("unfortunately this is where your journey ends.", src);
+            VoiceManager.ShowSubtitle("so I will have to kindly ask you to leave the stage, thank you.", src);
         }
     }
 
@@ -193,7 +195,7 @@ namespace UltraVoice.Characters
                 v2,
                 "V2IntroFirstRestart",
                 V2Character.IntroFirstRestartClip,
-                "Still kicking, are we?",
+                "All that effort yet no progress, that's quite sad, hm, I blame myself really.",
                 true
             );
 
@@ -215,7 +217,7 @@ namespace UltraVoice.Characters
                 v2,
                 "V2IntroSecondRestart",
                 V2Character.IntroSecondRestartClip,
-                "JUST STAY DOWN!",
+                "LOOK WHO'S BACK ALREADY!",
                 true
             );
 
@@ -314,7 +316,7 @@ namespace UltraVoice.Characters
 
             VoiceManager.ShowSubtitle("wow ok asshole", src);
 
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(0.5f);
 
             VoiceManager.ShowSubtitle("didn’t even let me finish.", src);
         }
@@ -334,7 +336,7 @@ namespace UltraVoice.Characters
             if (src == null)
                 yield break;
 
-            VoiceManager.ShowSubtitle("Ugh... This will NOT be the last time we meet.", src);
+            VoiceManager.ShowSubtitle("This will NOT be the last time we meet.", src);
         }
 
         static IEnumerator PlayEscape(V2 v2)
@@ -424,7 +426,7 @@ namespace UltraVoice.Characters
                 __instance,
                 "V2Enrage",
                 V2Character.EnragePatienceClip,
-                "GOD DAMN IT!"
+                "YOU COWARD!"
             );
         }
     }
@@ -462,17 +464,17 @@ namespace UltraVoice.Characters
                 V2Character.IntroSecondClip
             );
 
-            VoiceManager.ShowSubtitle("Well… I’m sure you’re DYING to fight again,", src);
+            VoiceManager.ShowSubtitle("Well… I’m sure you’re dying for another bloodbath,", src);
 
             if (v2 == null || !src.isPlaying) yield break;
             yield return new WaitForSeconds(2.25f);
 
-            VoiceManager.ShowSubtitle("and I’m eager to help.", src);
+            VoiceManager.ShowSubtitle("And I’m eager to help,", src);
 
             if (v2 == null || !src.isPlaying) yield break;
-            yield return new WaitForSeconds(1.75f);
+            yield return new WaitForSeconds(0.75f);
 
-            VoiceManager.ShowSubtitle("Let’s try again, shall we?", src);
+            VoiceManager.ShowSubtitle("Therefore let’s do this again shall we?", src);
         }
     }
 
