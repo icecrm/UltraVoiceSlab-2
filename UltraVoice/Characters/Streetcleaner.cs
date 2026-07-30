@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using UnityEngine;
 using System.Collections;
 using UltraVoice.Utilities;
@@ -18,9 +18,9 @@ namespace UltraVoice.Characters
         {
             "ALL UNITS READY.",
             "STATUS UPDATE.",
-            "VISUAL.",
-            "CONTACT.",
-            "INVESTIGATE."
+            "VISUAL!",
+            "REPORT!",
+            "INVESTIGATING."
         };
 
         public static readonly string[] AttackSubs =
@@ -28,15 +28,15 @@ namespace UltraVoice.Characters
             "OPENING FIRE!",
             "CONTACT, CONTACT!",
             "STOP! HOLD IT!",
-            "I’VE MADE CONTACT",
-            "TO MY POSITION!"
+            "I’VE MADE CONTACT.",
+            "TO MY POSITION."
         };
 
         public static readonly string[] ParrySubs =
         {
-            "COUNTERING",
-            "DEPLOYING COUNTERMEASURES",
-            "HIT SUCCESS, TAKING ADVANTAGE"
+            "COUNTERING.",
+            "TAKING ADVANTAGE.",
+            "HIT SUCCESS."
         };
 
         public static void LoadVoiceLines(BepInEx.Logging.ManualLogSource logger)
