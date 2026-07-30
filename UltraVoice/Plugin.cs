@@ -1,4 +1,4 @@
-﻿using BepInEx;
+using BepInEx;
 using HarmonyLib;
 using PluginConfig.API;
 using PluginConfig.API.Fields;
@@ -42,7 +42,6 @@ namespace UltraVoice
         public static FloatField VoiceCooldown;
         public static FloatField VoiceVolume;
         public static EnumField<SwordsmachineVoiceActor> SwordsmachineVoiceActorField;
-        public static EnumField<SentryVoiceActor> SentryVoiceActorField;
         public static ConfigPanel TogglesPanel;
         public static ConfigPanel SubtitleColorPanel;
         public static ConfigPanel SlidersPanel;
@@ -54,11 +53,6 @@ namespace UltraVoice
             Garri
         }
 
-        public enum SentryVoiceActor
-        {
-            Noto,
-            Goober
-        }
 
         private static Dictionary<ICharacter, Dictionary<string, AudioClip[]>> characterVoiceLines =
             new Dictionary<ICharacter, Dictionary<string, AudioClip[]>>();
@@ -216,21 +210,12 @@ namespace UltraVoice
                 SwordsmachineVoiceActor.Eggs
             );
 
-            UltraVoicePlugin.SentryVoiceActorField = new EnumField<SentryVoiceActor>(
-                ActorPanel,
-                "Sentry Voice Actor",
-                "svoiceactor",
-                SentryVoiceActor.Goober
-            );
-
             UltraVoicePlugin.SwordsmachineVoiceActorField.SetEnumDisplayName(SwordsmachineVoiceActor.Eggs, "Eggs Toast");
             UltraVoicePlugin.SwordsmachineVoiceActorField.SetEnumDisplayName(SwordsmachineVoiceActor.Garri, "Garrison");
 
-            UltraVoicePlugin.SentryVoiceActorField.SetEnumDisplayName(SentryVoiceActor.Goober, "Goober");
-            UltraVoicePlugin.SentryVoiceActorField.SetEnumDisplayName(SentryVoiceActor.Noto, "Noto");
             LoadAssets();
 
-            new Harmony("com.mel33.ultravoice").PatchAll();
+            new Harmony("com.icecrm.ultravoice").PatchAll();
 
             SceneManager.sceneLoaded += OnSceneLoaded;
 
