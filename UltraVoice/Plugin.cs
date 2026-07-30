@@ -35,7 +35,6 @@ namespace UltraVoice
         public static BoolField GuttertankVoiceEnabled;
         public static BoolField ProvidenceVoiceEnabled;
         public static BoolField SentryVoiceEnabled;
-        public static BoolField MauriceVoiceEnabled;
         public static BoolField EarthmoverVoiceEnabled;
         public static BoolField MirrorReaperVoiceEnabled;
         public static BoolField PowerSubtitleColorEnabled;
@@ -157,13 +156,6 @@ namespace UltraVoice
                 true
             );
 
-            MauriceVoiceEnabled = new BoolField(
-                TogglesPanel,
-                "Enable Malicious Face Voice Lines",
-                "mauricevoice",
-                true
-            );
-
             EarthmoverVoiceEnabled = new BoolField(
                 TogglesPanel,
                 "Enable Earthmover Voice Lines",
@@ -260,7 +252,6 @@ namespace UltraVoice
             GuttertankCharacter.LoadVoiceLines(Logger);
             ProvidenceCharacter.LoadVoiceLines(Logger);
             SentryCharacter.LoadVoiceLines(Logger);
-            MaliciousFaceCharacter.LoadVoiceLines(Logger);
             EarthmoverCharacter.LoadVoiceLines(Logger);
             MirrorReaperCharacter.LoadVoiceLines(Logger);
         }
