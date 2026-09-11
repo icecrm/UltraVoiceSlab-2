@@ -47,4 +47,4 @@ Due to what mel33 has said, I legally cannot upload the finished version of this
 
 ## Notice
 
-This mod is **NOT FINISHED**. and is **MOSTLY NOT MINE.** the original is by mel33
+This mod is **NOT FINISHED**. and is **BASED ON PUBLICLY AVAILABLE CODE USED WITH PERMISSION.** the original is by mel33
