@@ -26,17 +26,13 @@ This mod plans to add different voice lines to:
 
 ## Installation
 
-1. Install BepInEx for ULTRAKILL
-2. Download the latest release of UltraVoice
-3. Place both `UltraVoice.dll` and `ultravoiceassets` in the same folder
-4. Launch the game
-5. Profit
+Due to what mel33 has said, I legally cannot upload the finished version of this mod anywhere. i can however say that if you were to, download the github archive, change some of the filepaths in the UltraVoice.slnx and UltraVoice.csproj files, and build the .dll yourself using Microsoft Visual Studio, you would be creating an identical copy of the mod on your own computer without mel's knowledge and she would have no legal ability to take away your access. and I can say that, if you were to take that dll, and put it into r2modman by importing a mod locally, you would be able to use that mod on your device. However that would technically be illegal, so do not do that.
 
 ---
 
 ## Credit/Special Thanks
 
-- mel33 (for making the mod, helping, and letting me do this)
+- mel33 (for making the mod)
 - Garrison (Voice of swordsmachine)
 - Eggs Toast/eggcasket (Voice of swordsmachine)
 - radwazhere (Voice of Cerberus)
